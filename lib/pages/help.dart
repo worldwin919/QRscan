@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HelpPage extends StatefulWidget {
-  HelpPage({Key key}) : super(key: key);
+  HelpPage({Key? key}) : super(key: key);
 
   @override
   _HelpPageState createState() => _HelpPageState();

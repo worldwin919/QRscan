@@ -5,7 +5,7 @@ import 'package:mass_qr/models/scans.dart';
 import 'package:vibration/vibration.dart';
 
 class ScanPage extends StatefulWidget {
-  ScanPage({Key key}) : super(key: key);
+  ScanPage({Key? key}) : super(key: key);
 
   @override
   _ScanPageState createState() => _ScanPageState();
@@ -49,7 +49,7 @@ class _ScanPageState extends State<ScanPage> {
                                 case TorchState.on:
                                   return const Icon(Icons.flash_on);
                               }
-                              return null;
+                         //     return null;
                             },
                           ),
                           onPressed: () => controller.toggleTorch(),
@@ -68,7 +68,7 @@ class _ScanPageState extends State<ScanPage> {
                                 case CameraFacing.back:
                                   return const Icon(Icons.camera_rear);
                               }
-                              return null;
+                    //          return null;
                             },
                           ),
                           onPressed: () => controller.switchCamera(),
@@ -85,25 +85,32 @@ class _ScanPageState extends State<ScanPage> {
     );
   }
 
-  Widget _buildQrView(BuildContext context) {
+ Widget _buildQrView(BuildContext context) {
     return MobileScanner(
+
+       
         key: qrKey,
         controller: controller,
         onDetect: (barcode, args) async {
           if (barcode.rawValue != null) {
             ScansModel scans = Provider.of<ScansModel>(context, listen: false);
             if (!scans.scans.contains(barcode.rawValue)) {
-              scans.add(barcode.rawValue);
+              scans.add(barcode.rawValue!);
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   duration: Duration(seconds: 1),
                   content: Text('Added \'${barcode.rawValue}\'')));
-              if (await Vibration.hasVibrator())
+             
+           bool hasVibrator = await Vibration.hasVibrator() ?? false;
+
+                 if (hasVibrator)
                 Vibration.vibrate(duration: 50);
             } else {
+                         bool hasVibrator = await Vibration.hasVibrator() ?? false;
+
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   duration: Duration(seconds: 1),
                   content: Text('Skipped duplicate entry')));
-              if (await Vibration.hasVibrator()) Vibration.vibrate();
+              if (hasVibrator) Vibration.vibrate();
             }
           }
         });

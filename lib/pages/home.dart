@@ -8,7 +8,7 @@ import 'package:mass_qr/pages/help.dart';
 import 'package:mass_qr/pages/scan.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -117,15 +117,15 @@ class _HomePageState extends State<HomePage> {
                                                           },
                                                           child: Text('Delete'),
                                                           style: TextButton.styleFrom(
-                                                              primary: Theme.of(
+                                                              foregroundColor: Theme.of(
                                                                       context)
-                                                                  .errorColor))
+                                                                  .colorScheme.error))
                                                     ],
                                                   ));
                                         },
                                   child: Text('Delete All'),
                                   style: ElevatedButton.styleFrom(
-                                      primary: Theme.of(context).errorColor),
+                                      backgroundColor: Theme.of(context).colorScheme.error),
                                 ),
                               )
                             ]),
